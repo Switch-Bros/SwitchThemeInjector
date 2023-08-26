@@ -26,7 +26,7 @@ ThemesPage::ThemesPage() : lblPage("")
 
 void ThemesPage::RefreshThemesList()
 {
-	DisplayLoading("Loading themes list...");
+	DisplayLoading("Lade Themesliste...");
 	ClearSelection();
 	SetPage(-1);
 	CursorMemory.clear();
@@ -129,7 +129,7 @@ void ThemesPage::SetPage(int num, int index)
 		if (baseIndex >= DirectoryFiles.size())
 		{
 			// This shouldn't happen
-			lblPage = "Error page out of bounds";
+			lblPage = "Fehlerseite außerhalb des gueltigen Bereichs";
 			return;
 		}
 
@@ -156,9 +156,9 @@ void ThemesPage::Render(int X, int Y)
 
 	if (DisplayEntries.size() == 0)
 		ImGui::TextWrapped(
-			"There's nothing here, copy your themes in the themes folder on your sd and try again.\n\n"
-			"If you do have a themes folder in your sd with themes make sure that the name is all lowercase and that you don't have the archive bit issue (most likely if you use a mac) or sd corruption if you use exfat.\n\n"
-			"You can find more about those on google or ask for support on discord."
+			"Hier gibt es nichts. Kopiere deine Themes in den Ordner 'themes' auf deiner SD-Karte und versuche es erneut.\n\n"
+			"Wenn du einen Ordner namens 'themes' auf deiner SD-Karte mit Themes hast, stelle sicher, dass der Name komplett in Kleinbuchstaben ist. Ueberprüfe auch, ob du nicht das 'Archive-Bit'-Problem hast (meist durch Verwendung eines Mac), deine SD-Karte Korrupt ist, falls du exFAT verwendest.\n\n"
+			"Du kannst mehr darueber auf Google erfahren oder im Discord nach Unterstuetzung fragen."
 		);
 
 	ImGui::SetCursorPosY(600);
@@ -171,7 +171,7 @@ void ThemesPage::Render(int X, int Y)
 	ImGui::TextUnformatted(lblCommands.c_str());
 
 	{
-		Utils::ImGuiSetupPage("ThemesList", X, Y, DefaultWinFlags & ~ImGuiWindowFlags_NoScrollbar);
+		Utils::ImGuiSetupPage("Themesliste", X, Y, DefaultWinFlags & ~ImGuiWindowFlags_NoScrollbar);
 		int setNewMenuIndex = 0;
 		if (ResetScroll || ImGui::GetCurrentWindow()->Appearing)
 		{
@@ -266,9 +266,9 @@ void ThemesPage::UpdateBottomText()
 	std::stringstream ss;
 
 	if (SelectedFiles.size() != 0)
-		ss << "(" << SelectedFiles.size() << " selected) ";
+		ss << "(" << SelectedFiles.size() << " ausgewaehlt) ";
 
-	ss << CurrentDir << " - Page " << pageNum + 1 << "/" << pageCount;
+	ss << CurrentDir << " - Seite " << pageNum + 1 << "/" << pageCount;
 	
 	lblPage = ss.str();
 
@@ -337,7 +337,7 @@ void ThemesPage::Update()
 			ThemeEntry::DisplayInstallDialog(file);
 			if (!ThemeEntry::FromFile(file)->Install(false))
 			{
-				Dialog("Installing a theme failed, the process was cancelled");
+				Dialog("Theme installation fehlgeschlagen, der Prozess wurde beendet");
 				break;
 			}
 		}

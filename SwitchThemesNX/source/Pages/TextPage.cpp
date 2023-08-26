@@ -34,12 +34,12 @@ void TextPage::Update()
 }
 
 CreditsPage::CreditsPage() :
-	creditsText("NXThemes installer by exelix - " + Version::Name + " - Core Ver." + SwitchThemesCommon::CoreVer +
+	creditsText("NXThemes Installer von exelix - " + Version::Name + " - Hauptversion" + SwitchThemesCommon::CoreVer +
 		'\n' + Version::Commit +
 		"\nSource: github.com/exelix11/SwitchThemeInjector"+
-		"\nDonations: ko-fi.com/exelix11\n\n")
+		"\nSpenden: ko-fi.com/exelix11\n\n")
 {
-	Name = "Credits";
+	Name = "Danksagung";
 }
 
 extern void ShowFirstTimeHelp(bool WelcomeScr); //from main.cpp
@@ -53,18 +53,18 @@ void CreditsPage::Render(int X, int Y)
 
 	ImGui::PushFont(font25);
 	ImGui::TextWrapped(
-		"Thanks to:\n"
-		"Syroot for BinaryData lib\n"
-		"AboodXD for Bntx editor and sarc lib\n"
-		"shchmue for Lockpick\n"
-		"SciresM for hactool\n"
-		"Everyone from Atmosphere and libnx\n"
-		"switch-stuff on github for the font converter\n"
-		"Fincs for the hybrid_app template\n"
-		"Everyone from the DearImgui github repo"
+		"Dank an:\n"
+		"Syroot fuer die BinaryData Bibliothek\n"
+		"AboodXD fuer die Bntx Editor und sarc Bibliothek\n"
+		"shchmue fuer Lockpick\n"
+		"SciresM fuer hactool\n"
+		"Jeden von atmosphere und libnx\n"
+		"switch-stuff auf github fuer den Font Konverter\n"
+		"Fincs fuer die hybrid_app Vorlage\n"
+		"Jeden von DearImgui github Repo"
 	);
 
-	if (ImGui::Button("Show first startup info"))
+	if (ImGui::Button("Erste Startinformation anzeigen"))
 		PushFunction([]() {ShowFirstTimeHelp(false); });
 	PAGE_RESET_FOCUS;
 

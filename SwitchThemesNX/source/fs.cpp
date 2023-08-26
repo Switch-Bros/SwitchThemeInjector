@@ -121,21 +121,21 @@ vector<u8> fs::OpenFile(const string &name)
 {
 	FILE* f = fopen(name.c_str(),"rb");
 	if (!f)
-		throw std::runtime_error("Opening file " + name + " failed !\n" FS_TROUBLESHOOT_MSG);
+		throw std::runtime_error("Oeffnen von " + name + " fehlgeschlagen !\n" FS_TROUBLESHOOT_MSG);
 
 	fseek(f,0,SEEK_END);
 	size_t len = 0;
 	{
 		auto fsz = ftell(f);
 		if (fsz < 0)
-			throw std::runtime_error("Reading file size for " + name + " failed !\n" FS_TROUBLESHOOT_MSG);
+			throw std::runtime_error("Dateigroesse ermitteln von " + name + " fehlgeschlagen !\n" FS_TROUBLESHOOT_MSG);
 		len = fsz;
 	}
 	rewind(f);
 
 	vector<u8> coll(len);
 	if (fread(coll.data(), 1, len, f) != len)
-		throw std::runtime_error("Reading from file " + name + " failed !\n" FS_TROUBLESHOOT_MSG);
+		throw std::runtime_error("Lesen der Datei " + name + " fehlgeschlagen !\n" FS_TROUBLESHOOT_MSG);
 
 	fclose(f);
 	return coll;
@@ -148,7 +148,7 @@ void fs::WriteFile(const string &name,const vector<u8> &data)
 	
 	FILE* f = fopen(name.c_str(),"wb");
 	if (!f)
-		throw std::runtime_error("Saving file " + name + "failed !");
+		throw std::runtime_error("Speichern von " + name + "fehlgeschlagen !");
 	
 	fwrite(data.data(),1,data.size(),f);
 	fflush(f);

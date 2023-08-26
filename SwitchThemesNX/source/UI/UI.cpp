@@ -70,7 +70,7 @@ void Image::Internal::AssertOnLeaks()
 {
 	ImageCache::Clear();
 	if (ImageCount)
-		throw std::runtime_error("Leaking images !");
+		throw std::runtime_error("Vorschaubilder !");
 }
 
 using namespace std;
@@ -85,14 +85,14 @@ static auto HasString(const string& str)
 
 static void PopFirst()
 {
-	LOGf("Pool full, popping %s\n", ImagePool[0].first.c_str());
+	LOGf("Speicher voll, %s wird angezeigt\n", ImagePool[0].first.c_str());
 	ImageCache::FreeImage(ImagePool[0].first);
 }
 
 static void AddValue(const string& str, LoadedImage img)
 {
 	ImagePool.emplace_back(str, img);
-	LOGf("Pushing %s size %lu\n", str.c_str(), ImagePool.size());
+	LOGf("%s wird uebertragen, Groesse %lu\n", str.c_str(), ImagePool.size());
 
 	const u32 MaxCachedImages = UseLowMemory ? 2 : 7;
 	if (ImagePool.size() > MaxCachedImages)

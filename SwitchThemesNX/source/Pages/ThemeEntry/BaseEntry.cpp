@@ -74,7 +74,7 @@ unique_ptr<ThemeEntry> ThemeEntry::FromFile(const std::string& fileName)
 	try {
 		if (filesystem::is_directory(fileName))
 		{
-			auto&& e = make_unique<DummyEntry>(fileName, fs::GetFileName(fileName), fileName, "folder");
+			auto&& e = make_unique<DummyEntry>(fileName, fs::GetFileName(fileName), fileName, "Ordner");
 			e->Folder = true;
 			return move(e);
 		}
@@ -82,7 +82,7 @@ unique_ptr<ThemeEntry> ThemeEntry::FromFile(const std::string& fileName)
 		vector<u8>&& data = fs::OpenFile(fileName);
 
 		if (data.size() == 0)
-			return make_unique<DummyEntry>(fileName, "Couldn't open this file", fileName, "ERROR");
+			return make_unique<DummyEntry>(fileName, "Datei konnte nicht geoeffnet werden", fileName, "FEHLER");
 
 		if (StrEndsWith(fileName, ".ttf"))
 			return make_unique<FontEntry>(fileName, move(data));
@@ -93,14 +93,14 @@ unique_ptr<ThemeEntry> ThemeEntry::FromFile(const std::string& fileName)
 	}
 	catch (std::exception &ex)
 	{
-		return make_unique<DummyEntry>(fileName, "Error - " + std::string(ex.what()), fileName, "ERROR");
+		return make_unique<DummyEntry>(fileName, "Fehler - " + std::string(ex.what()), fileName, "FEHLER");
 	}
 	catch (...)
 	{
-		return make_unique<DummyEntry>(fileName, "Unknown exception while opening this file", fileName, "ERROR");
+		return make_unique<DummyEntry>(fileName, "Unbekannte Ausnahme beim oeffnen dieser Datei", fileName, "FEHLER");
 	}
 
-	return make_unique<DummyEntry>(fileName, "Unknown file type", fileName, "ERROR");
+	return make_unique<DummyEntry>(fileName, "Unbekannter Dateityp", fileName, "FEHLER");
 }
 
 unique_ptr<ThemeEntry> ThemeEntry::FromSZS(const std::vector<u8>& RawData)

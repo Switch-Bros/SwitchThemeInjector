@@ -14,7 +14,7 @@ class RebootPage : public IPage
 	public:
 		RebootPage()
 		{
-			Name = "Reboot";
+			Name = "Neustart";
 		}
 		
 		void Render(int X, int Y) 
@@ -23,9 +23,9 @@ class RebootPage : public IPage
 			ImGui::PushFont(font30);
 			ImGui::SetCursorPos({ 5, 10 });
 
-			ImGui::TextUnformatted("Rebooting your console will apply the changes you made.");
-			ImGui::TextWrapped("This is a shortcut to the system's reboot button. If your CFW doesn't provide reboot to payload you will need a way to inject a payload from RCM.");
-			if (ImGui::Button("Reboot"))
+			ImGui::TextUnformatted("Neustarten der Konsole wird die von dir vorgenommenen Aenderungen uebernehmen.");
+			ImGui::TextWrapped("Dies ist eine Verknuepfung zur System-Neustarttaste. Wenn deine CFW keinen Neustart zum Payload unterstuetzt, benoetigst du eine Moeglichkeit, einen Payload aus dem RCM-Modus zu injizieren.");
+			if (ImGui::Button("Neustarten"))
 			{
 				PlatformReboot();
 			}

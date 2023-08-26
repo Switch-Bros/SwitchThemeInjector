@@ -11,7 +11,7 @@ namespace Settings {
 
 SettingsPage::SettingsPage() 
 {
-	Name = "Settings";
+	Name = "Einstellungen";
 }
 
 void SettingsPage::Render(int X, int Y)
@@ -21,12 +21,12 @@ void SettingsPage::Render(int X, int Y)
 	ImGui::PushFont(font25);
 
 	ImGui::PushFont(font30);
-	ImGui::TextUnformatted("NXTheme settings");
+	ImGui::TextUnformatted("NXTheme Einstellungen");
 	ImGui::PopFont();
-	ImGui::TextWrapped("These settings only apply for installing nxthemes and are not saved, you have to switch them back every time you launch this app");
-	ImGui::Checkbox("Enable custom icons", &Settings::UseIcons);
+	ImGui::TextWrapped("Die Einstellungen gelten nur für die Installation von NXThemes und werden nicht gespeichert. Du musst sie jedes Mal zuruecksetzen, wenn du die App startest.");
+	ImGui::Checkbox("Benutzerdefinierte Symbole aktivieren", &Settings::UseIcons);
 	PAGE_RESET_FOCUS;
-	ImGui::Checkbox("Enable extra layouts (eg. common.szs)", &Settings::UseCommon);
+	ImGui::Checkbox("Zusaetzliche Layouts aktivieren (z. B. common.szs)", &Settings::UseCommon);
 	ImGui::NewLine();
 
 	ImGui::PopFont();

@@ -22,9 +22,9 @@ RemoteInstallPage::~RemoteInstallPage()
 }
 
 RemoteInstallPage::RemoteInstallPage() : 
-BtnStart("Start remote install###InstallBtn")
+BtnStart("Starte Remote Inst.###InstallBtn")
 {
-	Name = "Download themes";
+	Name = "Themes holen";
 	if (!UseLowMemory)
 	{
 		SetRemoteInstallCode("");
@@ -41,18 +41,18 @@ void RemoteInstallPage::Render(int X, int Y)
 	if (!RemoteInstallFile)
 	{
 		ImGui::PushFont(font40);
-		ImGui::Text("Download from the internet");
+		ImGui::Text("Download vom Internet");
 		ImGui::PopFont();
 
 		if (UseLowMemory)
 		{
 			ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 0, 0, 255));
-			ImGui::TextWrapped("This feature is not available while running in applet mode, launch with title takeover.");
+			ImGui::TextWrapped("Die Funktion ist im Applet-Modus nicht verfuegbar, starte mit Title-Override.");
 			ImGui::PopStyleColor();
 		}
 		else
 		{
-			ImGui::TextWrapped("Select a provider from the list to download themes.\nYou can add custom providers as explained in the wiki on Github.");
+			ImGui::TextWrapped("Waehle einen Anbieter aus der Liste, um Themes zu Downloaden.\nDu kannst benutzerdefinierte Anbieter hinzufuegen, wie im Wiki auf GitHub erklaert wird.");
 			ImGui::PushItemWidth(500);
 			if (ImGui::Combo("###ProviderSelection", &ProviderIndex, ComboBoxApiProviderGetter, nullptr, RemoteInstall::API::ProviderCount()))
 				SelectedProviderStatic = RemoteInstall::API::GetProvider(ProviderIndex).Static;
@@ -63,16 +63,16 @@ void RemoteInstallPage::Render(int X, int Y)
 
 			if (!SelectedProviderStatic) {
 				ImGui::SameLine();
-				if (ImGui::Button("Random themes"))
+				if (ImGui::Button("Zufaelliges Theme"))
 					StartRemoteInstallFixed(RemoteInstall::FixedTypes::Random);
 				CurItemBlockLeft();
 				ImGui::SameLine();
-				if (ImGui::Button("New themes"))
+				if (ImGui::Button("Neues Theme"))
 					StartRemoteInstallFixed(RemoteInstall::FixedTypes::Recent);
 				CurItemBlockLeft();
 			}
 
-			ImGui::TextWrapped("Or search a theme by ID");
+			ImGui::TextWrapped("Oder Theme ueber die ID suchen");
 			ImGui::PushStyleColor(ImGuiCol_Button, 0xDFDFDFDF);
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, 0xEFEFEFEF);
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, 0xFFFFFFFF);
@@ -81,17 +81,17 @@ void RemoteInstallPage::Render(int X, int Y)
 				SetRemoteInstallCode(PlatformTextInput(RemoteInstallCode.c_str()));
 			ImGui::PopStyleColor(4);
 			ImGui::SameLine(0, 20);
-			if (ImGui::Button("Search###SearchBtn", { 150, 0 }) && RemoteInstallCode != "")
+			if (ImGui::Button("Suchen###SearchBtn", { 150, 0 }) && RemoteInstallCode != "")
 				StartRemoteInstallByCode();
 			CurItemBlockLeft();
-			ImGui::TextWrapped("IDs are not names, searching a theme by name won't work, open your provider in the browser, select a theme and it should show its unique ID.");
+			ImGui::TextWrapped("IDs sind keine Namen, Themes nach Namen suchen wird nicht funktionieren. Oeffne den Theme-Anbieter im Browser, waehle ein Theme aus und es sollte dessen eindeutige ID anzeigen.");
 		}
 
 		ImGui::Spacing();
 		ImGui::Separator();
 		ImGui::Spacing();
 		ImGui::PushFont(font40);
-		ImGui::Text("Remote install from the theme injector");
+		ImGui::Text("Remote-Installation ueber den Theme Injector");
 		ImGui::PopFont();
 	}
 
@@ -108,11 +108,11 @@ void RemoteInstallPage::Render(int X, int Y)
 		if (ImGui::IsWindowFocused())
 			Utils::ImGuiSelectItem();
 
-		ImGui::TextWrapped("Press A to install, B to cancel");
+		ImGui::TextWrapped("Drueck A zum installieren, B zum Abbrechen");
 	}
 	else 
 	{
-		ImGui::TextWrapped("You can install a theme directly from your pc with the theme injector, go to the 'NXTheme builder' tab and click on 'Remote install...'");
+		ImGui::TextWrapped("Du kannst ein Theme direkt vom PC mit dem Theme-Injector installieren. Gehe zum Tab 'NXTheme Builder' und klicke auf 'Remote Installation...'");
 		if (ImGui::Button(BtnStart.c_str()))
 		{
 			if (!server.IsHosting())
@@ -121,8 +121,8 @@ void RemoteInstallPage::Render(int X, int Y)
 				StopServer();
 		}
 		if (UseLowMemory) PAGE_RESET_FOCUS;
-		ImGui::TextWrapped("Keep the menu focus on this page or requests won't be executed");
-		ImGui::Checkbox("Automatically install and reboot", &AutoInstall);
+		ImGui::TextWrapped("Halte den Fokus im Menue auf dieser Seite, sonst werden Anfragen nicht ausgefuehrt.");
+		ImGui::Checkbox("Automatisch installieren und Neustarten", &AutoInstall);
 	}
 	Utils::ImGuiSetWindowScrollable();
 
@@ -133,14 +133,14 @@ void RemoteInstallPage::StartRemoteInstallByCode()
 {
 	PushFunction([this]() {
 		try {
-			DisplayLoading("Loading...");
+			DisplayLoading("Lade...");
 			RemoteInstall::Begin(SelectedProvider(), RemoteInstallCode);
 		}
 		catch (nlohmann::json::type_error& ex)	{
-			DialogBlocking("There was an error parsing the response from the server, this often mean that the code you requested could not be found, make sure that the code is valid.\n\nError message:\n"s + ex.what());
+			DialogBlocking("Es gab einen Fehler beim Verarbeiten der Antwort vom Server. Dies bedeutet oft, dass der angeforderte Code nicht gefunden werden konnte. Stelle sicher, dass der Code gueltig ist.\n\nFehlermeldung:\n"s + ex.what());
 		}
 		catch (std::exception& ex) {
-			DialogBlocking("There was an error processing the request, make sure that the code is valid and that you are connected to the internet.\n\nError message:\n"s + ex.what());
+			DialogBlocking("Es gab einen Fehler bei der Verarbeitung der Anfrage. Stelle sicher, dass der Code gueltig ist und dass du mit dem Internet verbunden bist.\n\nFehlermeldung:\n"s + ex.what());
 		}
 	});
 }
@@ -149,11 +149,11 @@ void RemoteInstallPage::StartRemoteInstallFixed(RemoteInstall::FixedTypes type)
 {
 	PushFunction([this, type]() {
 		try {
-			DisplayLoading("Loading...");
+			DisplayLoading("Lade...");
 			RemoteInstall::BeginType(SelectedProvider(), type);
 		}
 		catch (std::exception& ex) {
-			DialogBlocking("There was an error processing the request, make sure you are connected to the internet and try again in a bit, if it still doesn't work it's possible that the selected provider doesn't support this option.\n\nError message:\n"s + ex.what());
+			DialogBlocking("Es gab einen Fehler bei der Verarbeitung der Anfrage. Stelle sicher, dass du mit dem Internet verbunden bist, und versuche es in Kuerze erneut. Falls es immer noch nicht funktioniert, ist es moeglich, dass der ausgewaehlte Anbieter diese Option nicht unterstuetzt.\n\nFehlermeldung:\n"s + ex.what());
 		}
 	});
 }
@@ -185,7 +185,7 @@ void RemoteInstallPage::SetRemoteInstallCode(const char* input)
 {
 	RemoteInstallCode = std::string(input);
 	if (RemoteInstallCode == "")
-		RemoteInstallBtnText = "Input text###themeIDinput";
+		RemoteInstallBtnText = "ID eingeben###themeIDinput";
 	else
 		RemoteInstallBtnText = RemoteInstallCode + "###themeIDinput";
 }
@@ -195,7 +195,7 @@ void RemoteInstallPage::StartServer()
 	try 
 	{
 		server.StartHosting();
-		BtnStart = ("IP: " + server.GetHostname() + " - Press to stop###InstallBtn");
+		BtnStart = ("IP: " + server.GetHostname() + " - Druecken zum Abbrechen###InstallBtn");
 	}
 	catch (std::exception& ex)
 	{
@@ -206,12 +206,12 @@ void RemoteInstallPage::StartServer()
 void RemoteInstallPage::StopServer()
 {
 	server.StopHosting();
-	BtnStart = "Start remote install###InstallBtn";
+	BtnStart = "Beginne Remote Installation###InstallBtn";
 }
 
 void RemoteInstallPage::DialogError(const std::string &msg)
 {
-	Dialog("There was an error, try again.\n" + msg);
+	Dialog("Ein Fehler ist aufgetreten, versuch es erneut.\n" + msg);
 }
 
 const RemoteInstall::Provider& RemoteInstallPage::SelectedProvider()

@@ -5,7 +5,7 @@ using namespace std;
 
 void LoadingOverlay::Render(int X, int Y)
 {
-	Utils::ImGuiSetupWin("Loading", 20, 20);
+	Utils::ImGuiSetupWin("Lade", 20, 20);
 	ImGui::SetWindowFocus();
 	ImGui::SetWindowSize({ SCR_W - 30, SCR_H - 30 });
 	ImGui::PushFont(font30);
@@ -17,17 +17,17 @@ void LoadingOverlay::Render(int X, int Y)
 }
 
 DialogPage::DialogPage(const string &msg,const string &buttonMsg) : text(msg), btn(buttonMsg){}
-DialogPage::DialogPage(const string &msg) : DialogPage(msg, "Continue") {}
+DialogPage::DialogPage(const string &msg) : DialogPage(msg, "Weiter") {}
 
 void DialogPage::Render(int X, int Y)
 {	
-	Utils::ImGuiSetupWin("DialogPage", 20, 20, DefaultWinFlags | ImGuiWindowFlags_NoBringToFrontOnFocus);
+	Utils::ImGuiSetupWin("DialogSeite", 20, 20, DefaultWinFlags | ImGuiWindowFlags_NoBringToFrontOnFocus);
 	ImGui::SetWindowSize({ SCR_W - 40, SCR_H - 40});
 	ImGui::PushFont(font30);
 	ImGui::SetCursorPos({ 10, 15 });
 
 	ImGui::SetNextWindowSize({ SCR_W - 40 ,  SCR_H - 95 });
-	Utils::ImGuiSetupWin("DialogContent", 20, 20, DefaultWinFlags & ~ImGuiWindowFlags_NoScrollbar);
+	Utils::ImGuiSetupWin("DialogInhalt", 20, 20, DefaultWinFlags & ~ImGuiWindowFlags_NoScrollbar);
 	ImGui::SetWindowFocus();
 	ImGui::PushTextWrapPos(0.0f);
 	ImGui::TextUnformatted(text.c_str());
@@ -66,7 +66,7 @@ void YesNoPage::Render(int X, int Y)
 	ImGui::TextUnformatted(text.c_str());
 	ImGui::PopTextWrapPos();
 
-	int res = Utils::ImGuiCenterButtons({ "      YES      ", "      NO      " });
+	int res = Utils::ImGuiCenterButtons({ "      JA      ", "     NEIN     " });
 
 	if (res == 0)
 	{

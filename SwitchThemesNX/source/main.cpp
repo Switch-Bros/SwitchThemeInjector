@@ -203,7 +203,7 @@ class QuitPage : public IPage
 	public:
 		QuitPage()
 		{
-			Name = "Quit";
+			Name = "Beenden";
 		}	
 		
 		void Render(int X, int Y) override {}
@@ -217,22 +217,22 @@ class QuitPage : public IPage
 void ShowFirstTimeHelp(bool WelcomeScr)
 {	
 	if (WelcomeScr)
-		DialogBlocking("Welcome to NXThemes Installer " + Version::Name + "!\n\nThese pages contains some important informations, it's recommended to read them carefully.\nThis will only show up once, you can read it again from the Credits tab.");
+		DialogBlocking("Willkommen beim NXThemes Installer " + Version::Name + "!\n\nDiese Seiten enthalten einige wichtige Informationen. Es wird empfohlen, sie sorgfaeltig zu lesen.\nDies wird nur einmal angezeigt, du kannst es erneut im Bereich 'Credits' nachlesen.");
 
 	DialogBlocking(
-		"Custom themes CANNOT brick your console because they're installed only on the SDcard. \n"
-		"If after installing a theme your console doesn't boot anymore manually delete the '0100000000001000' and '0100000000001013' folders in 'SDcard/<your cfw folder>/contents (/titles on reinx and sxos)'.\n\n"
-		"When you change the firmware your console (upgrade or downgrade) you must uninstall the theme first because the installed files on the sd are firmware-dependent.\n"
-		"If the firmware you installed supports themes you can install them back after the update.\n\n"
-		"Lockscreen themes after firmware version 9.0 are not supported on all CFWs because some lack support for patching titles via IPS."
+		"Benutzerdefinierte Themes koennen deine Konsole NICHT 'bricken', da sie nur auf der SD-Karte installiert werden. \n"
+		"Wenn nach der Installation eines Themes deine Konsole nicht mehr startet, loesche manuell die Ordner '0100000000001000' und '0100000000001013' im Verzeichnis 'SD-Karte/atmosphere/contents'.\n\n"
+		"Wenn du die Firmware deiner Konsole aenderst (upgrade oder downgrade), musst du zuerst das Theme deinstallieren, da die auf der SD-Karte installierten Dateien von der Firmware abhaengig sind.\n"
+		"Wenn die von dir installierte Firmware Themes unterstuetzt, kannst du sie nach dem Update wieder installieren.\n\n"
+		"Lockscreen-Themes nach FW 9.0 werden nicht von allen CFWs unterstuetzt, da einige keine Unterstuetzung zum Patchen von Titeln über IPS bieten.."
 	);
 
 	DialogBlocking(
-		"You can find some themes on the /r/NXThemes subreddit and in the Qcean Discord server (invite: CUnHJgb) where you can also ask for support. \n\n"
-		"To make your own themes download the windows app at: https://git.io/fpxAS\n"
-		"Or use the online theme editor at: https://exelix11.github.io/SwitchThemeInjector/v2\n"
+		"Du kannst einige Themes im /r/NXThemes-Subreddit finden und im Qcean-Discord-Server (Einladung: CUnHJgb), wo du auch um Unterstuetzung bitten kannst. \n\n"
+		"Um eigene Themes zu erstellen, lade die Windows-App herunter unter: https://github.com/exelix11/SwitchThemeInjector\n"
+		"oder benutze den Online-Editor unter: https://themezer.net/tools/theme-creator\n"
 		"\n"
-		"That's all, have fun with custom themes :)"
+		"Das ist alles, viel Spaß mit benutzerdefinierten Themes! :)"
 	);
 }
 
@@ -307,7 +307,7 @@ static void SetupSysVer()
 	if (R_FAILED(res))
 	{
 		setsysExit();
-		DialogBlocking("Could not get sys ver res=" + std::to_string(res));
+		DialogBlocking("Konnte die Systemversion nicht abrufen. Ergebnis=" + std::to_string(res));
 		return;
 	}
 	HOSVer = { firmware.major,firmware.minor,firmware.micro };
@@ -340,7 +340,7 @@ int main(int argc, char **argv)
 	PlatformAfterInit();
 
 	SetupSysVer();
-	DisplayLoading("Loading system info...");
+	DisplayLoading("Lade Systeminformationen...");
 
 	bool ThemesFolderExists = fs::EnsureThemesFolderExists();
 	NcaDumpPage::CheckHomeMenuVer();

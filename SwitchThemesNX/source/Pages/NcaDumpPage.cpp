@@ -10,7 +10,7 @@ using namespace std;
 
 NcaDumpPage::NcaDumpPage()
 {
-	Name = "Extract home menu";
+	Name = "Entpacke Homemenu";
 }
 
 void NcaDumpPage::Render(int X, int Y)
@@ -18,36 +18,36 @@ void NcaDumpPage::Render(int X, int Y)
 	Utils::ImGuiSetupPage(this, X, Y);
 	ImGui::PushFont(font30);
 
-	ImGui::TextWrapped("To install .nxtheme files you need to extract the home menu first.\n"
-		"This is needed every time the firmware changes, both for updates and downgrades.\n"
-		"When the extracted version doesn't match with your firmware you will be prompted to do it.\n\n"
-		"Usually you don't need to extract it manually but in case you're facing issues you can try doing so here.");
+	ImGui::TextWrapped("Um .nxtheme-Dateien zu installieren, musst du zuerst das Homemenu entpacken.\n"
+		"Dies ist jedes Mal erforderlich, wenn die Firmware geaendert wird, sowohl bei Upgrades als auch bei Downgrades.\n"
+		"Wenn die extrahierte Version nicht mit deiner Firmware uebereinstimmt, wirst du aufgefordert, dies zu tun.\n\n"
+		"In der Regel musst du es nicht manuell entpacken, aber falls du auf Probleme stoeßt, kannst du es hier versuchen.");
 
-	if (ImGui::Button("Extract home menu"))
+	if (ImGui::Button("Entpacke Homemenu"))
 	{
 		PushFunction([]() {
 			if ((gamepad.buttons[GLFW_GAMEPAD_BUTTON_LEFT_BUMPER] && gamepad.buttons[GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER]))
 			{
-				DialogBlocking("Super secret combination entered, only the home menu NCA will be dumped (it won't be extracted)");
-				DisplayLoading("Extracting NCA...");
+				DialogBlocking("Supergeheime Kombination eingegeben, nur die Homemenu-NCA wird gesichert (sie wird nicht extrahiert).");
+				DisplayLoading("Entpacke NCA...");
 				if (fs::theme::DumpHomeMenuNca())
-					Dialog("The home menu NCA was extracted, now use the injector to complete the setup.\nIf you didn't do this on purpose ignore this message.");
+					Dialog("Das Homemenu-NCA wurde extrahiert. Verwende jetzt den Injektor, um die Einrichtung abzuschließen.\nWenn du dies nicht absichtlich getan hast, ignoriere diese Nachricht.");
 				return;
 			}
 			if (!YesNoPage::Ask(
-				"To install custom themes you need to extract the home menu first, this process may take several minutes, don't let your console go to sleep mode and don't press the home button.\n"
-				"Do you want to continue ?")) return;
+				"Um benutzerdefinierte Themes zu installieren, musst du zuerst das Homemenu entpacken. Dieser Vorgang kann einige Minuten dauern. Lasse deine Konsole nicht in den Ruhezustand gehen und druecke nicht die Home-Taste.\n"
+				"Moechtest du fortfahren ?")) return;
 			fs::RemoveSystemDataDir();
 			try
 			{				
 				hactool::ExtractHomeMenu();
 				hactool::ExtractPlayerSelectMenu();
 				hactool::ExtractUserPage();
-				Dialog("Done, the home menu was extracted, now you can install nxtheme files !");
+				Dialog("Abgeschlossen, das Homemenu wurde extrahiert. Jetzt kannst du .nxtheme-Dateien installieren. !");
 			}
 			catch (std::runtime_error &err)
 			{
-				DialogBlocking("Error while extracting the home menu: " + string(err.what()));
+				DialogBlocking("Fehler beim entpacken des Homemenu: " + string(err.what()));
 			}
 		});
 	}
@@ -68,7 +68,7 @@ void NcaDumpPage::CheckHomeMenuVer()
 {
 	if (!filesystem::exists(SD_PREFIX "/themes/systemData/ResidentMenu.szs"))
 	{
-		DialogBlocking("To install custom themes you need to extract the home menu first, this process may take several minutes, don't let your console go to sleep mode and don't press the home button.\nPress A to start");
+		DialogBlocking("Um benutzerdefinierte Themes zu installieren, musst du zuerst das Homemenu entpacken. Dieser Vorgang kann einige Minuten dauern. Lasse deine Konsole nicht in den Ruhezustand gehen und druecke nicht die Home-Taste.\nDruecke A, um zu starten.");
 		goto DUMP_HOMEMENU;
 	}
 	
@@ -91,9 +91,9 @@ void NcaDumpPage::CheckHomeMenuVer()
 	return;
 	
 ASK_DUMP:
-	if (!YesNoPage::Ask("The current firmware version is different than the one of the extracted home menu, do you want to extract the home menu again ?\nIf the extracted home menu doesn't match with the installed one themes will crash."))
+	if (!YesNoPage::Ask("Die aktuelle FW-Version unterscheidet sich von der des entpackten Homemenus. Moechtest du das Homemenu erneut entpacken?\nWenn das entpackte Homemenu nicht mit dem installierten uebereinstimmt, koennen Themes abstuerzen."))
 	{
-		DialogBlocking("You won't see this message again, in case of crashes you can extract the home menu manually from the `Extract home menu` option in the main menu");
+		DialogBlocking("Diese Nachricht wird nicht erneut angezeigt. Im Falle von Abstuerzen kannst du das Homemenu manuell entpacken, indem du die Option 'Entpacke Homemenu'im Hauptmenue verwendest.");
 		WriteHomeNcaVersion();
 		return;
 	}
@@ -106,7 +106,7 @@ DUMP_HOMEMENU:
 	}
 	catch (std::runtime_error &err)
 	{
-		DialogBlocking("Error while extracting the home menu: " + string(err.what()));
+		DialogBlocking("Fehler beim entpacken des Homemenu: " + string(err.what()));
 	}
 }
 

@@ -287,14 +287,14 @@ private:
 		{
 			std::string targetStr = ThemeTargetToName[themeInfo.Target];
 			if (_HasPreview)
-				targetStr += " - press X for preview";
+				targetStr += " - Fuer Vorschau X druecken";
 			lblLine2 = (targetStr);
 		}
 
 		lblFname = (themeInfo.ThemeName);
 		std::string l1 = "";
 		if (themeInfo.Author != "")
-			l1 += "by " + themeInfo.Author;
+			l1 += "von " + themeInfo.Author;
 		if (themeInfo.LayoutInfo != "")
 		{
 			l1 += " - " + themeInfo.LayoutInfo;

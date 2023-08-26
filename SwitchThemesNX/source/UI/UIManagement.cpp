@@ -18,7 +18,7 @@ static void windowFramebufferSizeCallback(GLFWwindow* window, int width, int hei
 	WRatio = (float)width / SCR_W;
 	HRatio = (float)height / SCR_H;
 	ImGui::GetIO().DisplayFramebufferScale = { WRatio, HRatio };
-	LOGf("fbuf scaled to %dx%d, new ratios %f %f\n", width, height, WRatio, HRatio);
+	LOGf("fbuf skaliert auf %dx%d, neues Seitenverhaeltnis  %f %f\n", width, height, WRatio, HRatio);
 }
 
 ImFont* font25;
@@ -120,7 +120,7 @@ bool GFX::Init()
 {
 	if (!glfwInit())
 	{
-		LOGf("glfw: failed to initialize\n");
+		LOGf("glfw: Initialisierung fehlgeschlagen\n");
 		return false;
 	}
 
@@ -131,7 +131,7 @@ bool GFX::Init()
 	mainWindow = glfwCreateWindow(SCR_W, SCR_H, "NXThemesInstaller", nullptr, nullptr);
 	if (!mainWindow)
 	{
-		LOGf("glfw: failed to create window\n");
+		LOGf("glfw: Fenster konnte nicht erstellt werden\n");
 		glfwTerminate();
 		return false;
 	}
@@ -151,7 +151,7 @@ bool GFX::Init()
 	if (glfwJoystickIsGamepad(GLFW_JOYSTICK_1))
 	{
 		GLFWgamepadstate state;
-		LOGf("Gamepad detected: %s\n", glfwGetGamepadName(GLFW_JOYSTICK_1));
+		LOGf("Gamepad erkannt: %s\n", glfwGetGamepadName(GLFW_JOYSTICK_1));
 		glfwGetGamepadState(GLFW_JOYSTICK_1, &state);
 	}
 

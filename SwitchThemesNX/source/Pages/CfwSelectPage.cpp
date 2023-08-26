@@ -22,17 +22,17 @@ void CfwSelectPage::Render(int X, int Y)
 	if (Folders.size() == 0)
 	{
 		ImGui::PushFont(font30);
-		Utils::ImGuiCenterString("Couldn't find any cfw folder.");
+		Utils::ImGuiCenterString("Es wurde kein CFW Ordner gefunden.");
 		ImGui::PopFont();
 		ImGui::NewLine();
 		ImGui::TextWrapped(
-			"Make sure you have either the \"atmosphere\", \"reinx\" or \"sxos\" folder in the root of your sd card.\n\n"
-			"Some cfws don't create this folder automatically so you should do it manually.\n"
-			"If you do have the cfw folder but still see this screen make sure it's written correctly, without spaces and all lowercase.");
+			"Stelle sicher das sich der \"atmosphere\" Ordner im root der SD-Karte befindet.\n\n"
+			"Moeglicherweise wurde eine der BAT-Dateien oder das updater-Skript nicht richtig durchlaufen.\n"
+			"In dem Fall solltest du unser Paket erneut auf deine SD-Karte mit einer der Moeglichkeiten installieren.");
 		
 	}	
 	else {
-		Utils::ImGuiCenterString("Multiple cfw folders detected, which one do you want to use ?");
+		Utils::ImGuiCenterString("Mehrere CFW Ordner gefunden, welchen moechtest du benutzen ?");
 
 		ImGui::PushFont(font30);
 		ImGui::SetCursorPos({ (float)XCursorBtn, ImGui::GetCursorPosY() + 30 });
@@ -53,8 +53,8 @@ void CfwSelectPage::Render(int X, int Y)
 	}
 
 	ImGui::NewLine();
-	Utils::ImGuiCenterString("if your cfw isn't supported open an issue on Github.");
-	if (Utils::ImGuiCenterButton("Close this application"))
+	Utils::ImGuiCenterString("Wenn deine CFW nicht unterstuetzt wird, eroeffne ein Issue auf Github.");
+	if (Utils::ImGuiCenterButton("Die Anwendungen beenden"))
 		App::Quit();
 
 	Utils::ImGuiSetWindowScrollable();

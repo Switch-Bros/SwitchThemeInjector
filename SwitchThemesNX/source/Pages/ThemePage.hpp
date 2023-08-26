@@ -50,8 +50,8 @@ class ThemesPage : public IPage
 
 		std::vector<std::string> SelectedFiles;
 		
-		const std::string CommandsTextNormal = "A: Install theme  Y: Multiselect  L/R: Previous/Next page";
-		const std::string CommandsTextSelected = "A: Add/Remove to selection  Y: Clear selection  `+`: Install selected";
+		const std::string CommandsTextNormal = "A: Theme installieren   Y: Mehrfachauswahl   L/R: Vorherige/Naechste Seite";
+		const std::string CommandsTextSelected = "A: Zur Auswahl hinzu/entfernen   Y: Auswahl entfernen   `+`: Ausgewaehlte installieren";
 
 		int LimitLoad = 25;
 

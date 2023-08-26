@@ -12,7 +12,7 @@ public:
 
 	ThemeUpdateDownloader(const std::string& url, Result& r) : BaseWorker({url}, true), OutResult(r) {
 		appendUrlToError = false;
-		SetLoadingLine("Checking for patch updates...");
+		SetLoadingLine("Ueberpruefe auf Patch Updates...");
 	}
 
 protected:
@@ -32,20 +32,20 @@ protected:
 	Result& OutResult;
 };
 
-QlaunchPatchPage::QlaunchPatchPage() : IPage("Themes patches") { }
+QlaunchPatchPage::QlaunchPatchPage() : IPage("Theme Patches") { }
 
 void QlaunchPatchPage::Render(int X, int Y)
 {
 	Utils::ImGuiSetupPage(this, X, Y);
 
 	ImGui::TextWrapped(
-		"Since firmware 9.0 some parts of the home menu require to be patched in order to install themes.\n"
-		"If you see this screen it means you don't have the patches needed for your firmware installed."
+		"Seit Firmware-Version 9.0 muessen bestimmte Teile des Homemenu gepatcht werden, um Themes zu installieren.\n"
+		"Wenn du diesen Bildschirm siehst, bedeutet das, dass die fuer deine Firmware benoetigten Patches nicht installiert sind."
 	);	
 
 	if (PatchMng::QlaunchBuildId() != "")
 	{
-		ImGui::Text("Your home menu version is the following (BuildID) :");
+		ImGui::Text("Dein Homemenu hat folgende Version (BuildID) :");
 		ImGui::PushStyleColor(ImGuiCol_Text, Colors::Highlight);
 		Utils::ImGuiCenterString(PatchMng::QlaunchBuildId());
 		ImGui::PopStyleColor();
@@ -53,19 +53,19 @@ void QlaunchPatchPage::Render(int X, int Y)
 	else 
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, Colors::Red);
-		ImGui::Text("Error: couldn't detect your home menu version");
+		ImGui::Text("Fehler: Homemenu Version konnte nicht ermittelt werden");
 		ImGui::PopStyleColor();
 	}
 
 	if (patchStatus == PatchMng::InstallResult::MissingIps) 
 	{		
-		ImGui::TextWrapped("This version is not currently supported, after a new firmware is released it can take a few days for the patches to be updated");
+		ImGui::TextWrapped("Diese Version wird derzeit nicht unterstuetzt. Nach Veroeffentlichung einer neuen Firmware kann es einige Tage dauern, bis die Patches aktualisiert werden.");
 		ImGui::TextWrapped(
-			"New patches are now automatically downloaded from the internet whenever you launch this application. "
-			"If you want you can also check for updates now."
+			"Neue Patches werden jetzt automatisch aus dem Internet heruntergeladen, sobald du diese Anwendung startest. "
+			"Wenn du moechtest, kannst du auch jetzt nach Updates suchen."
 		);
 		
-		if (ImGui::Button("Check for updates"))
+		if (ImGui::Button("Auf Updates pruefen"))
 			PushFunction([this]() { CheckForUpdates(); });
 
 		if (updateMessageString != "")
@@ -81,7 +81,7 @@ void QlaunchPatchPage::Render(int X, int Y)
 		}
 
 		ImGui::TextWrapped(
-			"If you don't want to connect your console to the internet you can manually download the patches by following the the instructions at:"
+			"Wenn du deine Konsole nicht mit dem Internet verbinden moechtest, kannst du die Patches manuell herunterladen, indem du den Anweisungen unter folgendem Link folgst"
 		);
 		
 		ImGui::PushStyleColor(ImGuiCol_Text, Colors::Highlight);
@@ -91,21 +91,21 @@ void QlaunchPatchPage::Render(int X, int Y)
 	else if (patchStatus == PatchMng::InstallResult::SDError)
 	{
 		ImGui::TextWrapped(
-			"There was an error reading or writing files from your SD card, this usually means your SD is corrupted.\n"
-			"Please run the archive bit fixer, if that still doesn't work format your SD and set it up from scratch."
+			"Beim Lesen/Schreiben von Dateien auf deine SD-Karte ist ein Fehler aufgetreten. Dies bedeutet in der Regel, dass deine SD-Karte beschaedigt ist.\n"
+			"Bitte lass 'Fix Archive-Bit' durchlaufen. Wenn das immer noch nicht funktioniert, nutze eine der BAT-Dateien aus unserem Paket um die SD-Karte neu einzurichten"
 		);
 	}
 	else if (patchStatus == PatchMng::InstallResult::UnsupportedCFW)
 	{
 		ImGui::TextWrapped(
-			"Your CFW doesn't seem to be supported.\n"
-			"If your CFW is supported and you're seeing this there's probably something wrong with your SD card, install your CFW again."
+			"Deine CFW scheint nicht unterstuetzt zu werden.\n"
+			"Wenn deine CFW unterstuetzt wird und du trotzdem diese Meldung siehst, gibt es wahrscheinlich ein Problem mit deiner SD-Karte. Installiere deine CFW erneut."
 		);
 	}
 	else if (patchStatus == PatchMng::InstallResult::Ok)
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text, Colors::Highlight);
-		ImGui::Text("Successfully updated, reboot your console !");
+		ImGui::Text("Erfolgreich aktualisiert, starte deine Konsole neu. !");
 		ImGui::PopStyleColor();
 	}
 
@@ -121,7 +121,7 @@ void QlaunchPatchPage::Update()
 
 void QlaunchPatchPage::CheckForUpdates() {
 	ThemeUpdateDownloader::Result res;
-	PushPageBlocking(new ThemeUpdateDownloader("https://exelix11.github.io/theme-patches/ips/" + PatchMng::QlaunchBuildId(), res));
+	PushPageBlocking(new ThemeUpdateDownloader("https://github.com/exelix11/theme-patches/tree/master/systemPatches" + PatchMng::QlaunchBuildId(), res));
 
 	if (res.error != "")
 	{
@@ -131,19 +131,19 @@ void QlaunchPatchPage::CheckForUpdates() {
 	else if (res.httpCode == 404)
 	{
 		updateMessageIsError = false;
-		updateMessageString = "No update found";
+		updateMessageString = "Kein Update gefunden";
 	}
 	else if (res.httpCode != 200)
 	{
 		updateMessageIsError = true;
-		updateMessageString = "HTTP error: code " + res.httpCode;
+		updateMessageString = "HTTP Fehler: Code " + res.httpCode;
 	}
 	else
 	{
 		updateMessageIsError = false;
 		fs::patches::WritePatchForBuild(PatchMng::QlaunchBuildId(), res.data);
 		patchStatus = PatchMng::EnsureInstalled();
-		updateMessageString = "Successfully updated, reboot your console !";
+		updateMessageString = "Erfolgreich aktualisiert, starte deine Konsole neu !";
 	}
 }
 

@@ -6,7 +6,7 @@ using namespace std;
 
 UninstallPage::UninstallPage()
 {
-	Name = "Uninstall theme";
+	Name = "Themes loeschen";
 }
 
 void UninstallPage::Render(int X, int Y)
@@ -14,30 +14,30 @@ void UninstallPage::Render(int X, int Y)
 	Utils::ImGuiSetupPage(this, X, Y);
 	ImGui::PushFont(font30);
 
-	ImGui::TextWrapped("Use this to uninstall the currently installed themes.\nIf you have issues, you can try removing the whole LayeredFS folder and code patches.");
+	ImGui::TextWrapped("Verwenden, um derzeit installierte Themes zu loeschen.\nWenn du Probleme hast, kannst du versuchen, den gesamten LayeredFS-Ordner und die Code-Patches zu entfernen.");
 
 	ImGui::PushStyleColor(ImGuiCol_Button, u32(0x6B70000ff));
 	
-	auto i = Utils::ImGuiCenterButtons({ "Uninstall the current theme", "Uninstall everything" } , &firstBtn);
+	auto i = Utils::ImGuiCenterButtons({ "Aktuelles Theme loeschen", "Alle Themes loeschen" } , &firstBtn);
 	if (i != -1)
 	{
 		PushFunction([i]() {
-			if (!YesNoPage::Ask("Are you sure ?")) return;
+			if (!YesNoPage::Ask("Bist du dir sicher ?")) return;
 			if (i == 1)
 			{
-				DisplayLoading("Clearing LayeredFS dir...");
+				DisplayLoading("Loesche LayeredFS Ordner...");
 				fs::theme::UninstallTheme(true);
 				PatchMng::RemoveAll();
 				Dialog(
-					"Done, everything theme-related has been removed, restart your console to apply the changes.\n"
-					"As this removed the home menu patches as well you should restart this app before installing any theme."
+					"Abgeschlossen, alles im Zusammenhang mit Themes wurde entfernt. Starte deine Konsole neu, um die Aenderungen zu uebernehmen.\n"
+					"Da dadurch auch die Homemenu-Patches entfernt wurden, solltest du diese App neu starten, bevor du ein neues Theme installierst."
 				);
 			}
 			else
 			{
-				DisplayLoading("Loading...");
+				DisplayLoading("Lade...");
 				fs::theme::UninstallTheme(false);
-				Dialog("Done, all the installed themes have been removed, restart your console to apply the changes");
+				Dialog("Abgeschlossen, alle installierten Themes wurden entfernt. Starte deine Konsole neu, um die Aenderungen zu uebernehmen.");
 			}
 		});
 	}

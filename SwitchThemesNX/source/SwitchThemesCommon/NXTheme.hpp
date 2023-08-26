@@ -36,13 +36,13 @@ extern std::unordered_map<std::string,std::string> ThemeTargetToFileName;
 
 const std::unordered_map<std::string,std::string> ThemeTargetToName6X
 {
-	{"home","Home menu"},
-	{"lock","Lock screen"},
-	{"user","User page"},
-	{"apps","All apps menu"},
-	{"set","Settings applet"},
-	{"news","News applet" },
-	{"psl","Player selection" },
+	{"home","Homemenu"},
+	{"lock","Sperrbildschirm"},
+	{"user","Benutzer Seite"},
+	{"apps","Alle Software Menue"},
+	{"set","Einstellungen Seite"},
+	{"news","Nachrichten Applet" },
+	{"psl","Profilauswahl" },
 };
 
 const std::unordered_map<std::string,std::string> ThemeTargetToFileName6X
@@ -58,13 +58,13 @@ const std::unordered_map<std::string,std::string> ThemeTargetToFileName6X
 
 const std::unordered_map<std::string,std::string> ThemeTargetToName5X
 {
-	{"home","Home menu"},
-	{"lock","Lock screen"},
-	{"user","User page"},
-	{"apps","All applets"},
-	{"set","All applets"},
-	{"news","All applets"},
-	{"psl","Player selection" },
+	{"home","Homemenu"},
+	{"lock","Sperrbildschirm"},
+	{"user","Benutzer Seite"},
+	{"apps","Alle Software"},
+	{"set","Alle Einstellungen"},
+	{"news","Alle Nachrichten"},
+	{"psl","Profilauswahl" },
 };
 
 ThemeFileManifest ParseNXThemeFile(SARC::SarcData &SData);
