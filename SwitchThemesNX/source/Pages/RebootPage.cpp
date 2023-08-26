@@ -23,7 +23,7 @@ class RebootPage : public IPage
 			ImGui::PushFont(font30);
 			ImGui::SetCursorPos({ 5, 10 });
 
-			ImGui::TextUnformatted("Neustarten der Konsole wird die von dir vorgenommenen Aenderungen uebernehmen.");
+			ImGui::TextUnformatted("Neustarten der Konsole wird deine Aenderungen uebernehmen.");
 			ImGui::TextWrapped("Dies ist eine Verknuepfung zur System-Neustarttaste. Wenn deine CFW keinen Neustart zum Payload unterstuetzt, benoetigst du eine Moeglichkeit, einen Payload aus dem RCM-Modus zu injizieren.");
 			if (ImGui::Button("Neustarten"))
 			{
