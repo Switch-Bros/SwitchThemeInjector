@@ -36,11 +36,11 @@ SOURCES		:=	Libs/SOIL source/SwitchTools source/SwitchTools/lockpick source/UI s
 DATA		:=	data
 INCLUDES	:=	include Libs
 EXEFS_SRC	:=	exefs_src
-ROMFS	:=	romfs
+ROMFS		:=	romfs
 
 APP_TITLE	:=	NXThemes Installer
 APP_AUTHOR	:=	exelix / SwitchBros
-APP_VERSION := 2.7.5
+APP_VERSION :=  2.7.5
 
 GITVER ?= Unknown
 #---------------------------------------------------------------------------------

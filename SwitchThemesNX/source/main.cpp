@@ -186,7 +186,7 @@ void PushPageBlocking(IUIControlObj* page)
 {
 	if (IsRendering)
 	{
-		throw std::runtime_error("Attempted to push a blocking page while rendering");
+		throw std::runtime_error("Es wurde versucht, eine blockierende Seite waehrend der Darstellung zu oeffnen.");
 	}
 
 	PushPage(page);
