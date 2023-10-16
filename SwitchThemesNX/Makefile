@@ -40,7 +40,7 @@ ROMFS		:=	romfs
 
 APP_TITLE	:=	NXThemes Installer
 APP_AUTHOR	:=	exelix / SwitchBros
-APP_VERSION :=  2.7.5
+APP_VERSION :=  2.7.1
 
 GITVER ?= Unknown
 #---------------------------------------------------------------------------------
